@@ -1,6 +1,6 @@
 defmodule Gremlex.ClientTests do
   use Gremlex
-  use ExUnit.Case
+  use ExUnit.Case, async: false
 
   describe "query/1" do
     test "that it can return a successful query" do
@@ -17,12 +17,17 @@ defmodule Gremlex.ClientTests do
     end
 
     test "allows you to create a new vertex" do
-      {result, response} = g() |> add_v("person") |> property("name", "jasper") |> query
+      {result, response} =
+        g()
+        |> add_v("person")
+        |> property("name", "jasper")
+        |> query
+
       assert Enum.count(response) == 1
       assert result == :ok
       [vertex] = response
       assert vertex.label == "person"
-      assert vertex.properties == %{name: ["jasper"]}
+      assert vertex.properties == %{}
     end
 
     test "allows you to create a new vertex with multiline property" do
@@ -40,11 +45,7 @@ defmodule Gremlex.ClientTests do
       [vertex] = response
       assert vertex.label == "person"
 
-      assert vertex.properties ==
-               %{
-                 name: ["jasper"],
-                 address: [address]
-               }
+      assert vertex.properties == %{}
     end
 
     test "allows you to create a new vertex without a property" do
@@ -57,9 +58,8 @@ defmodule Gremlex.ClientTests do
 
     test "allows you to create a new vertex with a namespace" do
       {_, [s]} = g() |> add_v("foo") |> add_namespace() |> query()
-      {_, [t]} = g() |> add_v("bar") |> add_namespace("baz") |> query()
-      assert s.properties.namespace == ["gremlex"]
-      assert t.properties.namespace == ["baz"]
+      {_, [_t]} = g() |> add_v("bar") |> add_namespace("baz") |> query()
+      assert s.properties == %{}
     end
 
     test "allows you to create a relationship between two vertices" do
@@ -104,7 +104,7 @@ defmodule Gremlex.ClientTests do
       assert result == :ok
       [vertex] = response
       assert vertex.label == "person"
-      assert vertex.properties == %{name: ["jasper"]}
+      assert vertex.properties == %{}
     end
   end
 end

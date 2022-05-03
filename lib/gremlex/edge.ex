@@ -1,7 +1,7 @@
 defmodule Gremlex.Edge do
   alias Gremlex.Deserializer
   @enforce_keys [:label, :id, :in_vertex, :out_vertex, :properties]
-  @derive [Poison.Encoder]
+  @derive Jason.Encoder
   @type t :: %Gremlex.Edge{
           label: String.t(),
           id: number(),

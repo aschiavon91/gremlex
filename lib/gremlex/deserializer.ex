@@ -42,6 +42,17 @@ defmodule Gremlex.Deserializer do
     |> MapSet.new()
   end
 
+  def deserialize("g:Map", value) do
+    value
+    |> Enum.chunk_every(2)
+    |> Enum.map(fn [key, value] ->
+      key = deserialize(key)
+      value = deserialize(value)
+      {key, value}
+    end)
+    |> Map.new()
+  end
+
   def deserialize("g:Vertex", value) do
     Vertex.from_response(value)
   end
@@ -63,6 +74,8 @@ defmodule Gremlex.Deserializer do
   def deserialize("g:Float", value) when is_number(value), do: value
 
   def deserialize("g:UUID", value), do: value
+
+  def deserialize("g:T", value), do: value
 
   def deserialize("g:Date", value) do
     DateTime.from_unix!(value, :microsecond)

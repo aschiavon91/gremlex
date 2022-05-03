@@ -237,6 +237,14 @@ defmodule Gremlex.GraphTests do
     end
   end
 
+  describe "value_map/2 when value is a boolean" do
+    test "adds a valueMap function to the queue" do
+      actual_graph = g() |> Graph.value_map(true)
+      expected_graph = Queue.in({"valueMap", [true]}, Queue.new())
+      assert actual_graph == expected_graph
+    end
+  end
+
   describe "values/2" do
     test "adds a value function the queue" do
       actual_graph = g() |> values("foo")
@@ -253,7 +261,7 @@ defmodule Gremlex.GraphTests do
     end
 
     test "creates a vertex when the id is a number" do
-      check all n <- integer() do
+      check all(n <- integer()) do
         actual_graph = v(n)
         expected_graph = %Vertex{id: n, label: ""}
         assert actual_graph == expected_graph
@@ -860,14 +868,6 @@ defmodule Gremlex.GraphTests do
     test "adds a unfold function to the queue" do
       actual_graph = g() |> unfold()
       expected_graph = Queue.in({"unfold", []}, Queue.new())
-      assert actual_graph == expected_graph
-    end
-  end
-
-  describe "unfold/2" do
-    test "adds a unfold function to the queue" do
-      actual_graph = g() |> unfold("foo")
-      expected_graph = Queue.in({"unfold", ["foo"]}, Queue.new())
       assert actual_graph == expected_graph
     end
   end

@@ -6,7 +6,7 @@ defmodule Gremlex.VertexProperty do
           vertex: number()
         }
   @enforce_keys [:label, :id, :value]
-  @derive [Poison.Encoder]
+  @derive Jason.Encoder
   defstruct [:label, :id, :value, :vertex]
 
   def from_response(%{"id" => json_id, "value" => value, "vertex" => vertex, "label" => label}) do

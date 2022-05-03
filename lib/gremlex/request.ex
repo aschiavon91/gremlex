@@ -1,6 +1,6 @@
 defmodule Gremlex.Request do
   alias Gremlex.Graph
-  @derive [Poison.Encoder]
+  @derive Jason.Encoder
   @op "eval"
   @processor ""
   @enforce_keys [:op, :processor, :requestId, :args]

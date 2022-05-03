@@ -4,7 +4,7 @@ defmodule Gremlex.Vertex do
 
   @type t :: %Gremlex.Vertex{label: String.t(), id: number(), properties: map()}
   @enforce_keys [:label, :id]
-  @derive [Poison.Encoder]
+  @derive Jason.Encoder
   defstruct [:label, :id, :properties]
 
   def add_properties(%Vertex{properties: nil} = vertex, properties) do

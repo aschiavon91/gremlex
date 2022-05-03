@@ -164,6 +164,11 @@ defmodule Gremlex.Graph do
     enqueue(graph, "valueMap", [])
   end
 
+  @spec value_map(Gremlex.Graph.t(), Boolean.t()) :: Gremlex.Graph.t()
+  def value_map(graph, value) when is_boolean(value) do
+    enqueue(graph, "valueMap", value)
+  end
+
   @spec value_map(Gremlex.Graph.t(), String.t()) :: Gremlex.Graph.t()
   def value_map(graph, value) when is_binary(value) do
     enqueue(graph, "valueMap", [value])
@@ -534,11 +539,6 @@ defmodule Gremlex.Graph do
   @spec unfold(Gremlex.Graph.t()) :: Gremlex.Graph.t()
   def unfold(graph) do
     enqueue(graph, "unfold", [])
-  end
-
-  @spec unfold(Gremlex.Graph.t(), any()) :: Gremlex.Graph.t()
-  def unfold(graph, traversal) do
-    enqueue(graph, "unfold", [traversal])
   end
 
   @spec as(Gremlex.Graph.t(), List.t() | String.t()) :: Gremlex.Graph.t()
