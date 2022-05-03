@@ -1,14 +1,14 @@
-version: "3"
+version: "3.2"
 services:
   gremlin:
     build:
-      context: "."
+      context: .
       dockerfile: Dockerfile-gremlin
-    expose:
-      - "8182"
+      
+    ports:
+      - 8182:8182
+
   gremlex:
-    links:
-      - gremlin
     build:
       context: ../
       dockerfile: Dockerfile
