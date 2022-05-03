@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :gremlex,
   host: {:system, "GREMLEX_HOST", "127.0.0.1"},

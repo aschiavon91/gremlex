@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :gremlex,
   host: "127.0.0.1",
