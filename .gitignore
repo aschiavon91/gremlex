@@ -25,3 +25,5 @@ gremlex-*.tar
 .elixir_ls
 
 .idea
+
+/tmp
